@@ -7,8 +7,10 @@ function App() {
   GlobalCss();
   return (
     <Routes>
-      <Route path="/" index element={<Home />} />
-      <Route path="/signup" element={<SignUp />} />
+      <Route path="/">
+        <Route index element={<Home />} />
+        <Route path="/signup" element={<SignUp />} />
+      </Route>
     </Routes>
   );
 }

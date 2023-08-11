@@ -9,6 +9,7 @@ export const GlobalCss = globalCss({
     padding: 0,
     boxSizing: 'border-box',
     fontFamily: 'Roboto',
+    fontWeight: 400,
   },
 
   body: {

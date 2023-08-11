@@ -10,4 +10,10 @@ export const { styled, globalCss, keyframes, css, theme } = createStitches({
       Success: '#47B960',
     },
   },
+  media: {
+    mobile: '(max-width: 768px)',
+    tablet: '(max-width: 1024px)',
+    desktop: '(max-width: 1280px)',
+    large: '(max-width: 1536px)',
+  },
 });

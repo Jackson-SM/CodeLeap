@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
-import SignUp from './pages/SignUp';
-import { Home } from './pages/Home';
 import { GlobalCss } from './styles/globalCss';
+import SignUp from './pages/SignUp';
+import Home from './pages/Home';
 
 function App() {
   GlobalCss();

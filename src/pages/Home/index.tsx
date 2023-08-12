@@ -11,9 +11,36 @@ import { Post } from './components/Post';
 import { MorePosts } from '../../components/MorePosts';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../actions/userActions/actionCreators';
+import { useEffect, useState } from 'react';
+import { PostType } from '../../actions/postActions/postTypes';
+import getAllPosts from '../../actions/postActions/getAllPosts';
+import { LoadingScreen } from '../../components/LoadingScreen';
 
 const Home = () => {
+  const [posts, setPosts] = useState<PostType[]>([]);
+  const [loadingPosts, setLoadingPosts] = useState(true);
+  const [page, setPage] = useState(1);
+
+  const offset = 5;
+  const postsPerPage = 5;
+
+  useEffect(() => {
+    (async () => {
+      const postsApi = await getAllPosts(postsPerPage, offset * page);
+      setPosts((posts) => [...posts, ...postsApi]);
+      setLoadingPosts(false);
+    })();
+  }, [page]);
+
   const dispatch = useDispatch();
+
+  if (loadingPosts) {
+    return <LoadingScreen />;
+  }
+
+  function nextPage() {
+    setPage((page) => page + 1);
+  }
 
   return (
     <Styled.Home>
@@ -35,10 +62,10 @@ const Home = () => {
 
             <Button css={{ alignSelf: 'end', fontWeight: 600 }}>Create</Button>
           </Box>
-          <Post />
-          <Post />
-          <Post />
-          <MorePosts />
+          {posts.map((post) => (
+            <Post key={post.id} post={post} />
+          ))}
+          <MorePosts onClick={() => nextPage()} />
           <Button
             variant="warning"
             css={{

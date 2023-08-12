@@ -5,6 +5,7 @@ export const LoadingScreen = styled('div', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  height: '100vh',
 });
 export const LoadingLetter = styled('span', {
   fontSize: '4rem',

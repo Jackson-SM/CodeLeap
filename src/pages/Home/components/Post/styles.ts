@@ -2,7 +2,7 @@ import { Box } from '../../../../components/Box';
 import { styled } from '../../../../config/stitches.config';
 
 export const Post = styled(Box, {
-  width: '752px',
+  width: '100%',
   height: '316px',
 });
 export const PostContent = styled('div', {
@@ -14,4 +14,9 @@ export const PostContent = styled('div', {
 export const TopContent = styled('div', {
   display: 'flex',
   justifyContent: 'space-between',
+});
+
+export const Content = styled('p', {
+  width: '100%',
+  overflowWrap: 'break-word',
 });

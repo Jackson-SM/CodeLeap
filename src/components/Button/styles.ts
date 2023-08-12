@@ -13,8 +13,26 @@ export const Button = styled('button', {
 
   color: '#FFFFFF',
 
+  defaultVariants: {
+    variant: 'primary',
+  },
+
   '&[disabled]': {
     background: '$grey',
     cursor: 'default',
+  },
+
+  variants: {
+    variant: {
+      primary: {
+        background: '$primary',
+      },
+      warning: {
+        background: '$warning',
+      },
+      success: {
+        background: '$success',
+      },
+    },
   },
 });

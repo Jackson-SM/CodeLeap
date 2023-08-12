@@ -10,7 +10,7 @@ export const { styled, globalCss, keyframes, css, theme } = createStitches({
       warning: '#FF5151',
       success: '#47B960',
       grey: '#CCCCCC',
-      greyDark: '#777777',
+      greyDark: '#858585',
     },
   },
   media: {

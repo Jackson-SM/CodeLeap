@@ -8,8 +8,13 @@ import { FieldInput } from '../../components/FieldInput';
 import { CSS } from '@stitches/react';
 import { Textarea } from '../../components/Textarea';
 import { Post } from './components/Post';
+import { MorePosts } from '../../components/MorePosts';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../actions/userActions/actionCreators';
 
 const Home = () => {
+  const dispatch = useDispatch();
+
   return (
     <Styled.Home>
       <Styled.ContainerPosts>
@@ -25,7 +30,7 @@ const Home = () => {
 
             <FieldInput>
               <span>Content</span>
-              <Textarea cols={20} rows={7} placeholder="Content here" />
+              <Textarea cols={20} rows={4} placeholder="Content here" />
             </FieldInput>
 
             <Button css={{ alignSelf: 'end', fontWeight: 600 }}>Create</Button>
@@ -33,7 +38,22 @@ const Home = () => {
           <Post />
           <Post />
           <Post />
-          <Post />
+          <MorePosts />
+          <Button
+            variant="warning"
+            css={{
+              position: 'fixed',
+              top: 0,
+              right: 0,
+              margin: 20,
+              fontWeight: 'bold',
+            }}
+            onClick={() => {
+              dispatch(logout());
+            }}
+          >
+            SignOut
+          </Button>
         </Styled.ContainerPostsContainer>
       </Styled.ContainerPosts>
     </Styled.Home>

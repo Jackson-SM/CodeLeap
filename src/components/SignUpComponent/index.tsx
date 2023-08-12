@@ -3,9 +3,13 @@ import { Button } from '../Button';
 import { Input } from '../Input';
 import { TitleText } from '../TitleText';
 import * as Styled from './styles';
-
+import { useDispatch } from 'react-redux';
+import { login } from '../../actions/userActions/actionCreators';
 export const SignUpComponent = () => {
-  const [isDisabled, setIsDisabled] = useState<boolean>(true);
+  const [inputValue, setInputValue] = useState<string>('');
+
+  const dispatch = useDispatch();
+
   return (
     <Styled.SignUpComponent>
       <TitleText>Welcome to CodeLeap network!</TitleText>
@@ -22,13 +26,16 @@ export const SignUpComponent = () => {
           type="text"
           placeholder="John doe"
           onChange={(event) => {
-            setIsDisabled(event.target.value.length <= 0);
+            setInputValue(event.target.value);
           }}
         />
       </div>
       <Button
-        disabled={isDisabled}
+        disabled={inputValue.length <= 0}
         css={{ alignSelf: 'end', marginTop: 15, fontWeight: 600 }}
+        onClick={() => {
+          dispatch(login(inputValue));
+        }}
       >
         ENTER
       </Button>

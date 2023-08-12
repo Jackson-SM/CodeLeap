@@ -1,8 +1,9 @@
 import { globalCss } from '../config/stitches.config';
 
 export const GlobalCss = globalCss({
-  '@import':
-    'url("https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap")',
+  '@import': [
+    'url("https://fonts.googleapis.com/css2?family=Manrope&family=Roboto&display=swap")',
+  ],
 
   '*': {
     margin: 0,

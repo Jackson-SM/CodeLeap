@@ -1,4 +1,4 @@
-import { basicUrl } from '../../config/api.config';
+import { baseUrl } from '../../config/api.config';
 import { PostActionTypes } from './postActionTypes';
 import {
   CreatePostType,
@@ -11,7 +11,7 @@ import { AppDispatch } from '../../redux/store';
 export const createPost =
   (data: CreatePostType) => async (dispatch: AppDispatch) => {
     try {
-      const response = await fetch(`${basicUrl}`, {
+      const response = await fetch(`${baseUrl}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ export const createPost =
 export const deletePost =
   (data: DeletePostType) => async (dispatch: AppDispatch) => {
     try {
-      await fetch(`${basicUrl}${data.id}/`, {
+      await fetch(`${baseUrl}${data.id}/`, {
         method: 'DELETE',
       });
 
@@ -75,7 +75,7 @@ export const getAllPosts =
       });
 
       const response = await fetch(
-        `${basicUrl}/?limit=${limit ?? 5}&offset=${offset ?? 0}`,
+        `${baseUrl}/?limit=${limit ?? 5}&offset=${offset ?? 0}`,
       );
 
       const data = await response.json();
@@ -103,7 +103,7 @@ export const getAllPosts =
 export const updatePost =
   (data: UpdatePostType) => async (dispatch: AppDispatch) => {
     try {
-      await fetch(`${basicUrl}${data.id}/`, {
+      await fetch(`${baseUrl}${data.id}/`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

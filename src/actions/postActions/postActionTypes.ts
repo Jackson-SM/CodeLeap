@@ -1,5 +1,5 @@
 import { Action } from 'redux';
-import { DeletePostType, PostType } from './postTypes';
+import { DeletePostType, PostPayload, PostType } from './postTypes';
 
 export enum PostActionTypes {
   GET_ALL_POSTS = 'GET_ALL_POSTS',
@@ -9,7 +9,7 @@ export enum PostActionTypes {
 }
 
 export interface IGetAllPosts extends Action<PostActionTypes.GET_ALL_POSTS> {
-  payload: PostType[];
+  payload: PostPayload;
 }
 export interface IDeletePost extends Action<PostActionTypes.DELETE_POST> {
   payload: DeletePostType;

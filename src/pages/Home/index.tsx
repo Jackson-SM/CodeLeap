@@ -20,13 +20,14 @@ import { useAppSelector, usePostDispatch } from '../../redux/hooks';
 const Home = () => {
   const [page, setPage] = useState(0);
   const [buttonIsDisable, setButtonIsDisable] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   const postsPerPage = 5;
 
   const postDispatch = usePostDispatch();
   const dispatch = useDispatch();
   const user = useAppSelector((state) => state.user);
-  const { posts, loading } = useAppSelector((state) => state.post);
+  const { posts } = useAppSelector((state) => state.post);
 
   const handleButtonDisable = (event: React.FormEvent<HTMLFormElement>) => {
     const formData = new FormData(event.currentTarget);
@@ -44,7 +45,7 @@ const Home = () => {
     await postDispatch(createPost({ title, content, username: user.username }));
   };
 
-  function nextPage() {
+  async function nextPage() {
     setPage((page) => page + postsPerPage);
   }
 
@@ -53,7 +54,10 @@ const Home = () => {
   }, [postDispatch, page, postsPerPage]);
 
   useEffect(() => {
-    loadPosts();
+    (async () => {
+      await loadPosts();
+      setLoading(false);
+    })();
   }, [loadPosts]);
 
   if (loading) {

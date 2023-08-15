@@ -55,7 +55,6 @@ export const deletePost =
         type: PostActionTypes.DELETE_POST,
         payload: {
           posts: [],
-          loading: false,
           error: 'Erro inesperado',
         },
       });
@@ -65,15 +64,6 @@ export const deletePost =
 export const getAllPosts =
   (limit?: number, offset?: number) => async (dispatch: AppDispatch) => {
     try {
-      dispatch({
-        type: PostActionTypes.GET_ALL_POSTS,
-        payload: {
-          posts: [],
-          loading: true,
-          error: null,
-        },
-      });
-
       const response = await fetch(
         `${baseUrl}/?limit=${limit ?? 5}&offset=${offset ?? 0}`,
       );
@@ -84,7 +74,6 @@ export const getAllPosts =
         type: PostActionTypes.GET_ALL_POSTS,
         payload: {
           posts: data.results,
-          loading: false,
           error: null,
         },
       });
@@ -93,7 +82,6 @@ export const getAllPosts =
         type: PostActionTypes.GET_ALL_POSTS,
         payload: {
           posts: [],
-          loading: false,
           error: 'Erro inesperado',
         },
       });

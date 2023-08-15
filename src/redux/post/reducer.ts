@@ -9,7 +9,6 @@ import { PostPayload } from '../../actions/postActions/postTypes';
 
 const initialState: PostPayload = {
   posts: [],
-  loading: false,
   error: null,
 };
 
@@ -28,7 +27,11 @@ const postReducer = (
       };
 
     case PostActionTypes.GET_ALL_POSTS:
-      return { ...state, ...action.payload };
+      console.log(action.payload);
+      return {
+        ...state,
+        posts: [...state.posts, ...action.payload.posts],
+      };
 
     case PostActionTypes.UPDATE_POST:
       return {

@@ -7,7 +7,6 @@ export interface PostType {
 }
 export interface PostPayload {
   posts: PostType[];
-  loading: boolean;
   error: any;
 }
 

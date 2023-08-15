@@ -3,8 +3,6 @@ import { UserActionTypes } from './actionsTypes';
 export const login = (username: string) => {
   localStorage.setItem('user', JSON.stringify({ username, isLoggedIn: true }));
 
-  console.log('Login feito');
-
   return {
     type: UserActionTypes.LOGIN,
     payload: { username, isLoggedIn: true },
@@ -12,8 +10,6 @@ export const login = (username: string) => {
 };
 export const logout = () => {
   const user = localStorage.getItem('user');
-
-  console.log('Deslogado');
 
   if (user) {
     localStorage.removeItem('user');

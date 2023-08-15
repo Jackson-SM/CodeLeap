@@ -1,1 +1,1 @@
-export const basicUrl = 'https://dev.codeleap.co.uk/careers/';
+export const baseUrl = 'https://dev.codeleap.co.uk/careers/';

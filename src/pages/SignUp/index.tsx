@@ -1,4 +1,4 @@
-import { SignUpComponent } from '../../components/SignUpComponent';
+import { SignUpComponent } from './components/SignUpComponent';
 import * as Styled from './styles';
 
 const SignUp = () => {

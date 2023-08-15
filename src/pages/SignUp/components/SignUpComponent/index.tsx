@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Button } from '../Button';
-import { Input } from '../Input';
-import { TitleText } from '../TitleText';
+import { Button } from '../../../../components/Button';
+import { Input } from '../../../../components/Input';
+import { TitleText } from '../../../../components/TitleText';
 import * as Styled from './styles';
 import { useDispatch } from 'react-redux';
-import { login } from '../../actions/userActions/actionCreators';
+import { login } from '../../../../actions/userActions/actionCreators';
 export const SignUpComponent = () => {
   const [inputValue, setInputValue] = useState<string>('');
 

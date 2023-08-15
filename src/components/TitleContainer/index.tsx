@@ -1,3 +1,4 @@
+import React from 'react';
 import { TitleText } from '../TitleText';
 import * as Styled from './styles';
 
@@ -11,9 +12,14 @@ export const TitleContainer = ({
   title,
   ...props
 }: TitleContainerProps) => {
+  const titleFormat =
+    title.length >= 50 ? title.substring(0, 45) + '...' : title;
+
   return (
     <Styled.TitleContainer {...props}>
-      <TitleText css={{ color: '#fff' }}>{title}</TitleText>
+      <TitleText css={{ color: '#fff', overflow: 'hidden' }}>
+        {titleFormat}
+      </TitleText>
       {children}
     </Styled.TitleContainer>
   );

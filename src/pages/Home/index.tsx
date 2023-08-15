@@ -1,45 +1,63 @@
 import * as Styled from './styles';
 import { TitleContainer } from '../../components/TitleContainer';
-import { Box } from '../../components/Box';
-import { TitleText } from '../../components/TitleText';
-import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
-import { FieldInput } from '../../components/FieldInput';
-import { CSS } from '@stitches/react';
-import { Textarea } from '../../components/Textarea';
-import { Post } from './components/Post';
 import { MorePosts } from '../../components/MorePosts';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../actions/userActions/actionCreators';
 import { useEffect, useState } from 'react';
-import { PostType } from '../../actions/postActions/postTypes';
-import getAllPosts from '../../actions/postActions/getAllPosts';
 import { LoadingScreen } from '../../components/LoadingScreen';
+import { Post } from './components/Post';
+import { Box } from '../../components/Box';
+import { CSS, CSSProperties } from '@stitches/react';
+import { PostForm } from '../../components/PostForm';
+import { useCallback } from 'react';
+import {
+  createPost,
+  getAllPosts,
+} from '../../actions/postActions/actionCreators';
+import { useAppSelector, usePostDispatch } from '../../redux/hooks';
 
 const Home = () => {
-  const [posts, setPosts] = useState<PostType[]>([]);
-  const [loadingPosts, setLoadingPosts] = useState(true);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
+  const [buttonIsDisable, setButtonIsDisable] = useState(true);
 
-  const offset = 5;
   const postsPerPage = 5;
 
-  useEffect(() => {
-    (async () => {
-      const postsApi = await getAllPosts(postsPerPage, offset * page);
-      setPosts((posts) => [...posts, ...postsApi]);
-      setLoadingPosts(false);
-    })();
-  }, [page]);
-
+  const postDispatch = usePostDispatch();
   const dispatch = useDispatch();
+  const user = useAppSelector((state) => state.user);
+  const { posts, loading } = useAppSelector((state) => state.post);
 
-  if (loadingPosts) {
-    return <LoadingScreen />;
-  }
+  const handleButtonDisable = (event: React.FormEvent<HTMLFormElement>) => {
+    const formData = new FormData(event.currentTarget);
+    const buttonDisabledVerify =
+      formData.get('title')?.toString().trim() === '' ||
+      formData.get('content')?.toString().trim() === '';
+    setButtonIsDisable(buttonDisabledVerify);
+  };
+
+  const handleSubmitForm = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const title = formData.get('title')!.toString();
+    const content = formData.get('content')!.toString();
+    await postDispatch(createPost({ title, content, username: user.username }));
+  };
 
   function nextPage() {
-    setPage((page) => page + 1);
+    setPage((page) => page + postsPerPage);
+  }
+
+  const loadPosts = useCallback(async () => {
+    await postDispatch(getAllPosts(postsPerPage, page));
+  }, [postDispatch, page, postsPerPage]);
+
+  useEffect(() => {
+    loadPosts();
+  }, [loadPosts]);
+
+  if (loading) {
+    return <LoadingScreen />;
   }
 
   return (
@@ -47,20 +65,21 @@ const Home = () => {
       <Styled.ContainerPosts>
         <TitleContainer title="CodeLeap Network" />
         <Styled.ContainerPostsContainer>
-          <Box css={cssBoxContainer}>
-            <TitleText>What's on your mind?</TitleText>
-
-            <FieldInput>
-              <span>Title</span>
-              <Input type="text" placeholder="Hello world" />
-            </FieldInput>
-
-            <FieldInput>
-              <span>Content</span>
-              <Textarea cols={20} rows={4} placeholder="Content here" />
-            </FieldInput>
-
-            <Button css={{ alignSelf: 'end', fontWeight: 600 }}>Create</Button>
+          <Box>
+            <PostForm
+              titleForm="What’s on your mind?"
+              style={cssFormContainer}
+              onSubmit={handleSubmitForm}
+              onChange={handleButtonDisable}
+            >
+              <Button
+                disabled={buttonIsDisable}
+                type="submit"
+                css={{ alignSelf: 'end', fontWeight: 600 }}
+              >
+                Create
+              </Button>
+            </PostForm>
           </Box>
           {posts.map((post) => (
             <Post key={post.id} post={post} />
@@ -68,13 +87,7 @@ const Home = () => {
           <MorePosts onClick={() => nextPage()} />
           <Button
             variant="warning"
-            css={{
-              position: 'fixed',
-              top: 0,
-              right: 0,
-              margin: 20,
-              fontWeight: 'bold',
-            }}
+            css={cssButtonSignOut}
             onClick={() => {
               dispatch(logout());
             }}
@@ -87,11 +100,19 @@ const Home = () => {
   );
 };
 
-const cssBoxContainer: CSS = {
-  padding: 20,
+const cssButtonSignOut: CSS = {
+  position: 'absolute',
+  top: 0,
+  right: 0,
+  margin: 10,
+  fontWeight: 'bold',
+};
+
+const cssFormContainer: CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
   gap: 20,
+  padding: 20,
 };
 
 export default Home;

@@ -13,6 +13,8 @@ export const Button = styled('button', {
 
   color: '#FFFFFF',
 
+  transition: 'background 0.15s ease',
+
   defaultVariants: {
     variant: 'primary',
   },
@@ -20,18 +22,38 @@ export const Button = styled('button', {
   '&[disabled]': {
     background: '$grey',
     cursor: 'default',
+    '&:hover': {
+      background: '$grey',
+    },
   },
 
   variants: {
     variant: {
       primary: {
         background: '$primary',
+        '&:hover': {
+          background: '$primaryHover',
+        },
       },
       warning: {
         background: '$warning',
+        '&:hover': {
+          background: '$warningHover',
+        },
       },
       success: {
         background: '$success',
+        '&:hover': {
+          background: '$successHover',
+        },
+      },
+      outline: {
+        background: 'transparent',
+        border: '1px solid $text',
+        color: '$text',
+        '&:hover': {
+          background: '$backgroundLight',
+        },
       },
     },
   },

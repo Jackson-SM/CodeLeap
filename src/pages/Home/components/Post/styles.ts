@@ -20,3 +20,9 @@ export const Content = styled('p', {
   width: '100%',
   overflowWrap: 'break-word',
 });
+
+export const OptionsInPost = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  gap: 25,
+});

@@ -27,7 +27,6 @@ const postReducer = (
       };
 
     case PostActionTypes.GET_ALL_POSTS:
-      console.log(action.payload);
       return {
         ...state,
         posts: [...state.posts, ...action.payload.posts],

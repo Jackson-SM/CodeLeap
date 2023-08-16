@@ -11,6 +11,10 @@ export const GlobalCss = globalCss({
     boxSizing: 'border-box',
     fontFamily: 'Roboto',
     fontWeight: 400,
+
+    '@mobile': {
+      fontSize: '98%',
+    },
   },
 
   body: {

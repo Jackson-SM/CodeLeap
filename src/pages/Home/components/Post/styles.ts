@@ -3,7 +3,7 @@ import { styled } from '../../../../config/stitches.config';
 
 export const Post = styled(Box, {
   width: '100%',
-  height: '316px',
+  minHeight: '316px',
 });
 export const PostContent = styled('div', {
   padding: 20,
